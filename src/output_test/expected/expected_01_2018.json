@@ -1,0 +1,78 @@
+{
+    "contraCheque": [
+        {
+            "idContraCheque": "mpap/01/2018/1",
+            "chaveColeta": "mpap/01/2018",
+            "nome": "ADAUTO LUIZ DO VALLE BARBOSA",
+            "funcao": "PROMOT DE JUST. ENTR. FINAL",
+            "localTrabalho": "PJ DE MACAPA - PRODEMAP",
+            "ativo": true,
+            "remuneracoes": {
+                "remuneracao": [
+                    {
+                        "categoria": "contracheque",
+                        "item": "Remuneração do Cargo Efetivo"
+                    },
+                    {
+                        "categoria": "contracheque",
+                        "item": "Outras Verbas Remuneratórias, Legais ou Judiciais",
+                        "valor": 4815.45,
+                        "tipoReceita": "O"
+                    },
+                    {
+                        "categoria": "contracheque",
+                        "item": "Função de Confiança ou Cargo em Comissão",
+                        "tipoReceita": "O"
+                    },
+                    {
+                        "categoria": "contracheque",
+                        "item": "Gratificação Natalina",
+                        "tipoReceita": "O"
+                    },
+                    {
+                        "categoria": "contracheque",
+                        "item": "Férias (1/3 constitucional)",
+                        "valor": 3184.23,
+                        "tipoReceita": "O"
+                    },
+                    {
+                        "categoria": "contracheque",
+                        "item": "Abono de Permanência",
+                        "valor": 36947.23,
+                        "tipoReceita": "O"
+                    },
+                    {
+                        "categoria": "contracheque",
+                        "item": "Outras Remunerações Retroativas / Temporárias",
+                        "valor": 3184.23,
+                        "tipoReceita": "O"
+                    },
+                    {
+                        "categoria": "contracheque",
+                        "item": "Verbas Indenizações",
+                        "valor": 8415.47,
+                        "tipoReceita": "O"
+                    },
+                    {
+                        "natureza": "D",
+                        "categoria": "contracheque",
+                        "item": "Contribuição Previdenciária",
+                        "valor": -11599.7
+                    },
+                    {
+                        "natureza": "D",
+                        "categoria": "contracheque",
+                        "item": "Imposto de Renda",
+                        "valor": -25347.53
+                    },
+                    {
+                        "natureza": "D",
+                        "categoria": "contracheque",
+                        "item": "Retenção por Teto Constitucional",
+                        "valor": -8719.87
+                    }
+                ]
+            }
+        }
+    ]
+}
