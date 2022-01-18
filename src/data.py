@@ -20,7 +20,7 @@ def _read(file):
 
 def _convert_file(file, output_path):
     """
-    Converte os arquivos ODS que estão corrompidos, para XLSX.
+    Corrigindo arquivos XLS que estão corrompidos.
     """
     subprocess.run(
         ["libreoffice", "--headless", "--invisible", "--convert-to", "xls", file],
