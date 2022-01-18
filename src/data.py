@@ -1,6 +1,7 @@
 import pandas as pd
 import sys
 import os
+import subprocess
 
 # Se for erro de não existir planilhas o retorno vai ser esse:
 STATUS_DATA_UNAVAILABLE = 4
@@ -17,7 +18,23 @@ def _read(file):
     return data
 
 
-def load(file_names, year, month):
+def _convert_file(file, output_path):
+    """
+    Converte os arquivos ODS que estão corrompidos, para XLSX.
+    """
+    subprocess.run(
+        ["libreoffice", "--headless", "--invisible", "--convert-to", "xls", file],
+        capture_output=True,
+        text=True,
+    )  # Pega a saída para não interferir no print dos dados
+    file_name = file.split(sep="/")[-1]
+    file_name = f'{file_name.split(sep=".")[0]}.xls'
+    # Move para o diretório passado por parâmetro
+    subprocess.run(["mv", file_name, f"{output_path}/{file_name}"])
+    return f"{output_path}/{file_name}"
+
+
+def load(file_names, year, month, output_path):
     """Carrega os arquivos passados como parâmetros.
     
      :param file_names: slice contendo os arquivos baixados pelo coletor.
@@ -27,13 +44,16 @@ def load(file_names, year, month):
      :return um objeto Data() pronto para operar com os arquivos
     """
 
-    contracheque = _read([c for c in file_names if "contracheque" in c][0])
-
+    contracheque = _read(
+        _convert_file([c for c in file_names if "contracheque" in c][0], output_path)
+    )
     if int(year) == 2018 or (int(year) == 2019 and int(month) < 7):
         # Não existe dados exclusivos de verbas indenizatórias nesse período de tempo.
         return Data_2018(contracheque, year, month)
 
-    indenizatorias = _read([i for i in file_names if "indenizatorias" in i][0])
+    indenizatorias = _read(
+        _convert_file([i for i in file_names if "indenizatorias" in i][0], output_path)
+    )
 
     return Data(contracheque, indenizatorias, year, month)
 
@@ -75,7 +95,6 @@ class Data_2018:
         self.contracheque = contracheque
 
     def validate(self, output_path):
-
         if not (
             os.path.isfile(
                 output_path
