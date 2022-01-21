@@ -10,17 +10,17 @@ INDENIZACOES = "indenizações"
 
 HEADERS = {
     CONTRACHEQUE_2018: {
-        "Remuneração do Cargo Efetivo": 4,
-        "Outras Verbas Remuneratórias, Legais ou Judiciais": 5,
-        "Função de Confiança ou Cargo em Comissão": 6,
-        "Gratificação Natalina": 7,
-        "Férias (1/3 constitucional)": 8,
-        "Abono de Permanência": 9,
-        "Outras Remunerações Retroativas / Temporárias": 10,
-        "Verbas Indenizações": 11,
-        "Contribuição Previdenciária": 13,
-        "Imposto de Renda": 14,
-        "Retenção por Teto Constitucional": 15,
+        "Remuneração do Cargo Efetivo": 3,
+        "Outras Verbas Remuneratórias, Legais ou Judiciais": 4,
+        "Função de Confiança ou Cargo em Comissão": 5,
+        "Gratificação Natalina": 6,
+        "Férias (1/3 constitucional)": 7,
+        "Abono de Permanência": 8,
+        "Contribuição Previdenciária": 10,
+        "Imposto de Renda": 11,
+        "Retenção por Teto Constitucional": 12,
+        "Verbas Indenizações": 15,
+        "Outras Remunerações Retroativas / Temporárias": 16,
     },
     CONTRACHEQUE_2019_DEPOIS: {
         "Remuneração do Cargo Efetivo": 3,
@@ -103,12 +103,12 @@ def cria_remuneracao(row, categoria):
         remuneracao.item = key
         remuneracao.valor = format_value(row[value])
         if categoria == CONTRACHEQUE_2018:
-            if value == 4:
+            if value == 3:
                 remuneracao.tipo_receita = Coleta.Remuneracao.TipoReceita.Value("B")
-            elif value in [13, 14, 15]:
+            elif value in [10, 11, 12]:
                 remuneracao.valor = remuneracao.valor * (-1)
                 remuneracao.natureza = Coleta.Remuneracao.Natureza.Value("D")
-            elif value in [5, 6, 7, 8, 9, 10, 11]:
+            elif value in [4, 5, 6, 7, 8, 15, 16]:
                 remuneracao.tipo_receita = Coleta.Remuneracao.TipoReceita.Value("O")
         elif categoria == CONTRACHEQUE_2019_DEPOIS:
             if value == 3:
