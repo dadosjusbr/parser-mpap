@@ -36,25 +36,28 @@ def _convert_file(file, output_path):
 
 def load(file_names, year, month, output_path):
     """Carrega os arquivos passados como parâmetros.
-    
+
      :param file_names: slice contendo os arquivos baixados pelo coletor.
-    Os nomes dos arquivos devem seguir uma convenção e começar com 
+    Os nomes dos arquivos devem seguir uma convenção e começar com
     Membros ativos-contracheque e Membros ativos-Verbas Indenizatorias
      :param year e month: usados para fazer a validação na planilha de controle de dados
      :return um objeto Data() pronto para operar com os arquivos
     """
-
-    contracheque = _read(
-        _convert_file([c for c in file_names if "contracheque" in c][0], output_path)
-    )
-    if int(year) == 2018 or (int(year) == 2019 and int(month) < 7):
-        # Não existe dados exclusivos de verbas indenizatórias nesse período de tempo.
-        return Data_2018(contracheque, year, month)
-
-    indenizatorias = _read(
-        _convert_file([i for i in file_names if "indenizatorias" in i][0], output_path)
-    )
-
+    contracheque = ""
+    indenizatorias = ""
+    if os.path.isfile(output_path + f"/membros-ativos-contracheque-{month}-{year}.xls"):
+        contracheque = _read(
+            _convert_file(
+                [c for c in file_names if "membros-ativos-contracheque" in c][0], output_path)
+        )
+        if int(year) == 2018 or (int(year) == 2019 and int(month) < 7):
+            # Não existe dados exclusivos de verbas indenizatórias nesse período de tempo.
+            return Data_2018(contracheque, year, month)
+    if os.path.isfile(output_path + f"/membros-ativos-indenizatorias-{month}-{year}.xls"):
+        indenizatorias = _read(
+            _convert_file(
+                [i for i in file_names if "membros-ativos-indenizatorias" in i][0], output_path)
+        )
     return Data(contracheque, indenizatorias, year, month)
 
 
@@ -84,7 +87,8 @@ class Data:
                 + f"/membros-ativos-indenizatorias-{self.month}-{self.year}.xls"
             )
         ):
-            sys.stderr.write(f"Não existe planilhas para {self.month}/{self.year}.")
+            sys.stderr.write(
+                f"Não existe planilhas para {self.month}/{self.year}.")
             sys.exit(STATUS_DATA_UNAVAILABLE)
 
 
@@ -101,5 +105,6 @@ class Data_2018:
                 + f"/membros-ativos-contracheque-{self.month}-{self.year}.xls"
             )
         ):
-            sys.stderr.write(f"Não existe planilha para {self.month}/{self.year}.")
+            sys.stderr.write(
+                f"Não existe planilha para {self.month}/{self.year}.")
             sys.exit(STATUS_DATA_UNAVAILABLE)
