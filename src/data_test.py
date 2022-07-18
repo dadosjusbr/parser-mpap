@@ -1,18 +1,18 @@
 from data import load
+import os
 import unittest
 
-file_names = [
-    "src/output_test/sheets/membros-ativos-contracheque-07-2019.xls",
-    "src/output_test/sheets/membros-ativos-indenizatorias-07-2019.xls",
-]
+month = '05'
+year = '2022'
+file_names = [f'/membros-ativos-contracheque-{month}-{year}.xls', f'/membros-ativos-indenizatorias-{month}-{year}.xls']
 
 
 class TestData(unittest.TestCase):
     def test_validate_existence(self):
         STATUS_DATA_UNAVAILABLE = 4
         with self.assertRaises(SystemExit) as cm:
-            dados = load(file_names, "2021", "01", "/output")
-            dados.validate("src/output_test/sheets/")
+            dados = load(file_names, year, month, "/tmp/coletormpap/output")
+            dados.validate("")
         self.assertEqual(cm.exception.code, STATUS_DATA_UNAVAILABLE)
 
 
