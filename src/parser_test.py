@@ -37,6 +37,18 @@ class TestParser(unittest.TestCase):
         result_to_dict = MessageToDict(result_data)
         self.assertEqual(expected_07_2019, result_to_dict)
 
+    def test_05_2022(self):
+        self.maxDiff = None
+
+        files = ['src/output_test/sheets/membros-ativos-contracheque-05-2022.xlsx',
+                 'src/output_test/sheets/membros-ativos-verbas-indenizatorias-05-2022.xlsx']
+
+        try:
+            dados = load(files, '2022', '05', '/output')
+            result_data = parse(dados, 'mpms/05/2022', '05', '2022')
+        except:
+            assert False
+
 
 if __name__ == "__main__":
     unittest.main()
