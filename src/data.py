@@ -43,22 +43,21 @@ def load(file_names, year, month, output_path):
      :param year e month: usados para fazer a validação na planilha de controle de dados
      :return um objeto Data() pronto para operar com os arquivos
     """
-    contracheque = ""
-    indenizatorias = ""
-    if os.path.isfile(output_path + f"/membros-ativos-contracheque-{month}-{year}.xls"):
-        contracheque = _read(
-            _convert_file(
-                [c for c in file_names if "membros-ativos-contracheque" in c][0], output_path)
-        )
-        if int(year) == 2018 or (int(year) == 2019 and int(month) < 7):
-            # Não existe dados exclusivos de verbas indenizatórias nesse período de tempo.
-            return Data_2018(contracheque, year, month)
+
+    contracheque = _read(
+        _convert_file(
+            [c for c in file_names if "membros-ativos-contracheque" in c][0], output_path)
+    )
+    if int(year) == 2018 or (int(year) == 2019 and int(month) < 7):
+        # Não existe dados exclusivos de verbas indenizatórias nesse período de tempo.
+        return Data_2018(contracheque, year, month)
     if os.path.isfile(output_path + f"/membros-ativos-indenizatorias-{month}-{year}.xls"):
         indenizatorias = _read(
             _convert_file(
                 [i for i in file_names if "membros-ativos-indenizatorias" in i][0], output_path)
         )
-    return Data(contracheque, indenizatorias, year, month)
+        return Data(contracheque, indenizatorias, year, month)
+    return Data_2018(contracheque, year, month)
 
 
 class Data:
@@ -67,6 +66,7 @@ class Data:
         self.month = month
         self.contracheque = contracheque
         self.indenizatorias = indenizatorias
+        self.code = 0
 
     def validate(self, output_path):
         """
@@ -97,6 +97,7 @@ class Data_2018:
         self.year = year
         self.month = month
         self.contracheque = contracheque
+        self.code = 1
 
     def validate(self, output_path):
         if not (

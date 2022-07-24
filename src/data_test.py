@@ -12,17 +12,16 @@ class TestData(unittest.TestCase):
             "src/output_test/sheets/membros-ativos-indenizatorias-07-2019.xls",
         ]
         with self.assertRaises(SystemExit) as cm:
-            dados = load(file_names, "2021", "01", "/output")
+            dados = load(file_names, "2021", "01", "src/output_test/sheets")
             dados.validate("src/output_test/sheets/")
         self.assertEqual(cm.exception.code, STATUS_DATA_UNAVAILABLE)
 
     def test_validate_existence_05_2022(self):
-        file_names = ['/output/membros-ativos-contracheque-05-2022.xls',
-                      '/output/membros-ativos-indenizatorias-05-2022.xls']
+        file_names = ['src/output_test/sheets/membros-ativos-contracheque-05-2022.xls']
         try:
             with self.assertRaises(SystemExit) as cm:
-                dados = load(file_names, '2022', '05', "/output")
-                dados.validate("/output")
+                dados = load(file_names, '2022', '05', "src/output_test/sheets")
+                dados.validate("src/output_test/sheets")
             self.assertEqual(cm.exception.code, STATUS_DATA_UNAVAILABLE)
         except Exception as exc:
             if "SystemExit not raised" in str(exc):
