@@ -51,7 +51,7 @@ def load(file_names, year, month, output_path):
     if int(year) == 2018 or (int(year) == 2019 and int(month) < 7):
         # Não existe dados exclusivos de verbas indenizatórias nesse período de tempo.
         return Data_2018(contracheque, year, month)
-    if os.path.isfile(output_path + f"/membros-ativos-indenizatorias-{month}-{year}.xls"):
+    if os.path.isfile(f"{output_path}/membros-ativos-indenizatorias-{month}-{year}.xls"):
         indenizatorias = _read(
             _convert_file(
                 [i for i in file_names if "membros-ativos-indenizatorias" in i][0], output_path)
