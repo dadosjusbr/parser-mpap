@@ -106,7 +106,7 @@ def cria_remuneracao(row, categoria):
             if value == 3:
                 remuneracao.tipo_receita = Coleta.Remuneracao.TipoReceita.Value("B")
             elif value in [10, 11, 12]:
-                remuneracao.valor = remuneracao.valor * (-1)
+                remuneracao.valor = remuneracao.valor *(-1)
                 remuneracao.natureza = Coleta.Remuneracao.Natureza.Value("D")
             elif value in [4, 5, 6, 7, 8, 15, 16]:
                 remuneracao.tipo_receita = Coleta.Remuneracao.TipoReceita.Value("O")
@@ -114,7 +114,7 @@ def cria_remuneracao(row, categoria):
             if value == 3:
                 remuneracao.tipo_receita = Coleta.Remuneracao.TipoReceita.Value("B")
             elif value in [10, 11, 12]:
-                remuneracao.valor = remuneracao.valor * (-1)
+                remuneracao.valor = remuneracao.valor *(-1)
                 remuneracao.natureza = Coleta.Remuneracao.Natureza.Value("D")
             elif value in [4, 5, 6, 7, 8, 14]:
                 remuneracao.tipo_receita = Coleta.Remuneracao.TipoReceita.Value("O")
@@ -143,7 +143,7 @@ def is_nan(string):
 def parse(data, chave_coleta, mes, ano):
     employees = {}
     folha = Coleta.FolhaDePagamento()
-    if int(ano) == 2018 or (int(ano) == 2019 and int(mes) < 7):
+    if int(ano) == 2018 or (int(ano) == 2019 and int(mes) < 7) or data.code == 1:
         try:
             employees.update(parse_employees(data.contracheque, chave_coleta, mes, ano))
 
