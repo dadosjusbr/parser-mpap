@@ -32,7 +32,6 @@ HEADERS = {
         "Contribuição Previdenciária": 10,
         "Imposto de Renda": 11,
         "Retenção por Teto Constitucional": 12,
-        "Outras Remunerações Temporárias": 14,
     },
     INDENIZACOES: {
         "Auxílio-Saúde": 4,
