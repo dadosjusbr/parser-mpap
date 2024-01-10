@@ -59,12 +59,6 @@
                         "item": "Retenção por Teto Constitucional"
                     },
                     {
-                        "categoria": "contracheque",
-                        "item": "Outras Remunerações Temporárias",
-                        "valor": 29045.33,
-                        "tipoReceita": "O"
-                    },
-                    {
                         "categoria": "indenizações",
                         "item": "Auxílio-Saúde",
                         "valor": 2223.48,
